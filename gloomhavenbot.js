@@ -46,7 +46,7 @@ function getNextSession(message) {
   // The file token.json stores the user's access and refresh tokens, and is
   // created automatically when the authorization flow completes for the first
   // time.
-  const TOKEN_PATH = 'token.json';
+  const TOKEN_PATH = process.env.GOOGLE_TOKEN_PATH;
 
   // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => {
