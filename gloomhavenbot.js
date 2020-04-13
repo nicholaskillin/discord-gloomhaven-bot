@@ -24,3 +24,7 @@ client.on('message', message => {
     message.channel.send('Here is a list of the things you can ask me:\n\n"!market": This will give you the URL to our parties online town market\n"!helpersettings": This will give you the current ip address and port to use in Gloomhaven Helper.')
   }
 });
+
+client.on('ready', () => {
+  client.user.setPresence({activity: {name: '"!help" for help'}, status: "online"})
+})
