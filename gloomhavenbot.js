@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({path: '/home/pi/Desktop/gloomhavenBot/.env'})
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
