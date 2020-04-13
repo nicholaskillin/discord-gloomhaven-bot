@@ -1,6 +1,8 @@
+require('dotenv').config()
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const token = 'Njk4OTQ5MjM0OTIxMDQ2MDk2.XpNT4w.ZjxZA3n4J93HzduR55ZPuHzgj_g'
+const token = process.env.GLOOMHAVEN_BOT_TOKEN
 
 client.login(token);
 
