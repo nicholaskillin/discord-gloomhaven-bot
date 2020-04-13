@@ -1,0 +1,8 @@
+{
+  "name": "gloomhaven-discord-bot",
+  "description": "A Discord bot to help with Gloomhaven online.",
+  "version": "1.0.0",
+  "engines": {
+    "node": "12.16.x"
+  }
+}
