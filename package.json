@@ -4,5 +4,10 @@
   "version": "1.0.0",
   "engines": {
     "node": "12.16.x"
+  },
+  "dependencies": {
+    "discord.js": "^12.1.1",
+    "dotenv": "^8.2.0",
+    "public-ip": "^4.0.1"
   }
 }
