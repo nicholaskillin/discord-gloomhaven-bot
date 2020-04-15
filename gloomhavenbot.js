@@ -9,7 +9,7 @@ const publicIp = require('public-ip');
 client.login(token);
 
 client.on('ready', () => {
-  client.user.setPresence({activity: {name: '"!help" for help'}, status: "online"})
+  client.user.setPresence({activity: {name: '"!help" for help'}, status: "online"});
 });
 
 client.on('message', message => {
@@ -30,8 +30,32 @@ client.on('message', message => {
     message.channel.send(" You can use the Gloomhaven Card Manager to manage your character's ability and attack modifier cards during the campaign.\nhttps://nicholaskillin.github.io/.")
   } else if(message.content.toLowerCase() === '!nextsession' || message.content.toLowerCase() === '!whattime') {
     getNextSession(message);
+  } else if(message.content.toLowerCase().includes('!scenariogoals')){
+    players = [...message.mentions.users]
+    if(players.length < 2) {
+      message.channel.send(`You need to mention at least 2 people in your message.`)
+    } else if(players.length > 6){
+      message.channel.send(`You can only have a max of 6 players mentioned.`)
+    } else {
+      sendScenarioGoals(message, players);
+    }
+  } else if(message.content.toLowerCase() === '!gbstats' && message.author.username === process.env.MY_USERNAME){
+    message.author.send(`Here are the stats for Gloomhaven Bot 2.0.\n\nNumber of Servers: ${client.guilds.cache.size}`)
   }
 });
+
+function sendScenarioGoals(message, players) {
+  //Get URL
+  users = new Array(message.mentions.users);
+  let seedNumber = Math.floor((Math.random() *   8000) + 1);
+  let playerNumber = 1;
+
+  message.mentions.users.forEach(user => {
+    var url = `http://rastrillo.synology.me:3838/?_inputs_&Player=${playerNumber}&Seed=${seedNumber}&Extended=false&NumCards=2&button=1`
+    user.send(`Here are your scenario goals:\n${url}`)
+    playerNumber ++;
+  })
+};
 
 // Calendar Stuff
 
