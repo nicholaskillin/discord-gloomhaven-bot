@@ -5,8 +5,11 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const token = process.env.GLOOMHAVEN_BOT_TOKEN
 const publicIp = require('public-ip');
+const fs = require('fs');
 
 client.login(token);
+
+
 
 client.on('ready', () => {
   client.user.setPresence({activity: {name: '"!help" for help'}, status: "online"});
@@ -14,7 +17,11 @@ client.on('ready', () => {
 
 client.on('message', message => {
   if(message.content.toLowerCase() === '!market') {
-    message.channel.send(`You can access the parties market here\n${process.env.MARKET_URL}`)
+    fs.readFile(process.env.URL_FILE, 'utf8', (e, data) => {
+      const obj = JSON.parse(data);
+      message.channel.send(`You can access the parties market here\n${obj.market}`);
+    });
+    // message.channel.send(`You can access the parties market here\n${process.env.MARKET_URL}`)
   } else if(message.content.toLowerCase().includes('marco')) {
     message.channel.send(`polo`)
   } else if(message.content.toLowerCase() === '!helpersettings') {
@@ -41,6 +48,23 @@ client.on('message', message => {
     }
   } else if(message.content.toLowerCase() === '!gbstats' && message.author.username === process.env.MY_USERNAME){
     message.author.send(`Here are the stats for Gloomhaven Bot 2.0.\n\nNumber of Servers: ${client.guilds.cache.size}`)
+  } else if(message.content.toLowerCase().startsWith('!setmarketurl')) {
+    const prefix = "!setmarketurl";
+    fs.readFile(process.env.URL_FILE, 'utf8', (e, data) => {
+      const newUrl = message.content.slice(prefix.length + 1);
+      const obj = JSON.parse(data);
+      obj.market = newUrl;
+      fs.writeFile(process.env.URL_FILE, JSON.stringify(obj), (err) => {
+        var dateTime = new Date();
+        var dataForLog = `${dateTime} - ${obj.market}\n`;
+        console.log(dataForLog);
+        fs.appendFile(process.env.MARKET_LOG, dataForLog, (err) => {
+          if (err) throw err;
+          console.log('The "data to append" was appended to file!');
+        });
+        err ? message.channel.send(`${err}`) : message.channel.send(`You updated the market URL.`);
+      });
+    });
   }
 });
 
