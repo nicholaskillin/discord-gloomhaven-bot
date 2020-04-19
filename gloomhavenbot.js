@@ -65,6 +65,23 @@ client.on('message', message => {
         err ? message.channel.send(`${err}`) : message.channel.send(`You updated the market URL.`);
       });
     });
+  } else if(message.content.toLowerCase().startsWith('!setscenariourl')) {
+    const prefix = "!setscenariourl";
+    fs.readFile(process.env.URL_FILE, 'utf8', (e, data) => {
+      const newUrl = message.content.slice(prefix.length + 1);
+      const obj = JSON.parse(data);
+      obj.scenarios = newUrl;
+      fs.writeFile(process.env.URL_FILE, JSON.stringify(obj), (err) => {
+        var dateTime = new Date();
+        console.log(message);
+        var dataForLog = `${dateTime} - ${message.author.username} - ${obj.scenarios}\n`;
+        fs.appendFile(process.env.SCENARIO_LOG, dataForLog, (err) => {
+          if (err) throw err;
+          console.log('The "data to append" was appended to file!');
+        });
+        err ? message.channel.send(`${err}`) : message.channel.send(`You updated the scenario URL.`);
+      });
+    });
   }
 });
 
