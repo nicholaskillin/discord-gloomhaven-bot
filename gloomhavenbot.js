@@ -32,7 +32,10 @@ client.on('message', message => {
       message.channel.send(`Address: ${address}\nPort: 58888`);
     })
   } else if(message.content.toLowerCase() === '!help') {
-    message.channel.send('Here is a list of the things you can ask me:\n\n"!nextsession" or "!whattime": This will tell you when our next Gloomhaven Online session starts.\n\n"!market": This will give you the URL to our parties online town market\n\n"!helpersettings": This will give you the current ip address and port to use in Gloomhaven Helper.\n\n"!mycards": This will give you the URL for the app we use to manage our ability at attack modifier cards during the campaign.')
+    const embed = new Discord.MessageEmbed()
+    .setTitle('Gloomhaven Bot Help')
+    .setDescription('Here is a list of the things you can ask me:\n\n**!nextsession** or **!whattime**: This will tell you when our next Gloomhaven Online session starts.\n\n**!market**: This will give you the URL to our parties online town market.\n\n**!setmarketurl**: If you make a change to the market then we will need a new link to see your changes. You can click on the "Share" tab at the top of the market, then click on "Copy". This command should look something like:\n\n `!setmarketurl copied_url_here`\n\n**!scenarios**: This will give you the URL to our parties updated campaign status in a way that makes it easier to visualize the storyline.\n\n**!setscenariourl**: If you make a change to the scnario map then we will need a new link to see your changes. You can click on the Menu button in the top left of the window, then click on "Share", then click on "Copy the link". This command should look something like:\n\n `!setscenariourl copied_url_here`\n\n**!mycards**: This will give you the URL for an app you can use to manage your ability and attack modifier cards during the campaign.\n\n**!helpersettings**: This will give you the current ip address and port to use in Gloomhaven Helper.')
+    message.channel.send(embed)
   } else if(message.content.toLowerCase() === '!mycards') {
     message.channel.send(" You can use the Gloomhaven Card Manager to manage your character's ability and attack modifier cards during the campaign.\nhttps://nicholaskillin.github.io/.")
   } else if(message.content.toLowerCase() === '!nextsession' || message.content.toLowerCase() === '!whattime') {
