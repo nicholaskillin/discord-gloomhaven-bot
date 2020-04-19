@@ -90,7 +90,7 @@ client.on('message', message => {
       });
     });
   } else if(message.content.toLowerCase() === '!channels') {
-    console.log(client.channels);
+    client.channels.cache.forEach(channel => message.channel.send(`${channel.name} - ${channel.id}`));
   }
 });
 
