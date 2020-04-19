@@ -21,8 +21,12 @@ client.on('message', message => {
       const obj = JSON.parse(data);
       message.channel.send(`You can access the parties market here\n${obj.market}`);
     });
-    // message.channel.send(`You can access the parties market here\n${process.env.MARKET_URL}`)
-  } else if(message.content.toLowerCase().includes('marco')) {
+  } else if(message.content.toLowerCase() === '!scenarios') {
+    fs.readFile(process.env.URL_FILE, 'utf8', (e, data) => {
+      const obj = JSON.parse(data);
+      message.channel.send(`You can access the parties storyline here\n${obj.scenarios}`);
+    });
+  }else if(message.content.toLowerCase().includes('marco')) {
     message.channel.send(`polo`)
   } else if(message.content.toLowerCase() === '!helpersettings') {
     let publicIpAddress = (async () => {
@@ -85,6 +89,8 @@ client.on('message', message => {
         err ? message.channel.send(`${err}`) : message.channel.send(`You updated the scenario URL.`);
       });
     });
+  } else if(message.content.toLowerCase() === '!channels') {
+    console.log(client.channels);
   }
 });
 
