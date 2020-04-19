@@ -63,7 +63,7 @@ client.on('message', message => {
       obj.market = newUrl;
       fs.writeFile(process.env.URL_FILE, JSON.stringify(obj), (err) => {
         var dateTime = new Date();
-        var dataForLog = `${dateTime} - ${obj.market}\n`;
+        var dataForLog = `${dateTime} - ${message.author.username} - ${obj.market}\n`;
         console.log(dataForLog);
         fs.appendFile(process.env.MARKET_LOG, dataForLog, (err) => {
           if (err) throw err;
