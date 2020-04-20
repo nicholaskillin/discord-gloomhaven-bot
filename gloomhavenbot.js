@@ -26,7 +26,7 @@ client.on('message', message => {
       const obj = JSON.parse(data);
       message.channel.send(`You can access the parties storyline here\n${obj.scenarios}`);
     });
-  }else if(message.content.toLowerCase().includes('marco')) {
+  } else if(message.content.toLowerCase().includes('marco')) {
     message.channel.send(`polo`)
   } else if(message.content.toLowerCase() === '!helpersettings') {
     let publicIpAddress = (async () => {
