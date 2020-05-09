@@ -49,25 +49,13 @@ client.on('message', (message) => {
     message.channel.send(embed)
   } else if (message.content.toLowerCase() === '!mycards') {
     message.channel.send(
-      "You can use the Gloomhaven Card Manager to manage your character's ability and attack modifier cards during the campaign.\nhttps://nicholaskillin.github.io/."
+      "You can use the Gloomhaven Card Manager to manage your character's ability and attack modifier cards during the campaign.\nhttps://gloomhaven-hand-manager.herokuapp.com/."
     )
   } else if (
     message.content.toLowerCase() === '!nextsession' ||
     message.content.toLowerCase() === '!whattime'
   ) {
     getNextSession(message)
-  } else if (message.content.toLowerCase().includes('!scenariogoals')) {
-    // TODO - Delete this conditional
-    players = [...message.mentions.users]
-    if (players.length < 2) {
-      message.channel.send(
-        `You need to mention at least 2 people in your message.`
-      )
-    } else if (players.length > 6) {
-      message.channel.send(`You can only have a max of 6 players mentioned.`)
-    } else {
-      sendScenarioGoals(message, players)
-    }
   } else if (
     message.content.toLowerCase() === '!gbstats' &&
     message.author.username === process.env.MY_USERNAME
@@ -127,20 +115,6 @@ client.on('message', (message) => {
     message.channel.send(embed)
   }
 })
-
-// TODO Delete this function
-function sendScenarioGoals(message, players) {
-  //Get URL
-  users = new Array(message.mentions.users)
-  let seedNumber = Math.floor(Math.random() * 8000 + 1)
-  let playerNumber = 1
-
-  message.mentions.users.forEach((user) => {
-    var url = `http://rastrillo.synology.me:3838/?_inputs_&Player=${playerNumber}&Seed=${seedNumber}&Extended=false&NumCards=2&button=1`
-    user.send(`Here are your scenario goals:\n${url}`)
-    playerNumber++
-  })
-}
 
 // Calendar Stuff
 
