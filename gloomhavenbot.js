@@ -113,6 +113,10 @@ client.on('message', (message) => {
       )
       .setImage('https://i.imgur.com/qKqa6DP.jpg')
     message.channel.send(embed)
+  } else if (message.content.toLowerCase().startsWith('!enhancementcalc')) {
+    message.channel.send(
+      'Here is an enhancement cost calculator.\nhttps://ninjawithkillmoon.github.io/utilities/enhancementCalculator.'
+    )
   }
 })
 
