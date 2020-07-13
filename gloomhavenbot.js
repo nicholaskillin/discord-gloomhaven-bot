@@ -24,11 +24,25 @@ client.on('message', (message) => {
         `You can access the parties market here\n${obj.market}`
       )
     })
+  } else if (message.content.toLowerCase() === '!suzymarket') {
+    fs.readFile(process.env.URL_FILE, 'utf8', (e, data) => {
+      const obj = JSON.parse(data)
+      message.channel.send(
+        `You can access the parties storyline here\n${obj.suzyMarket}`
+      )
+    })
   } else if (message.content.toLowerCase() === '!scenarios') {
     fs.readFile(process.env.URL_FILE, 'utf8', (e, data) => {
       const obj = JSON.parse(data)
       message.channel.send(
         `You can access the parties storyline here\n${obj.scenarios}`
+      )
+    })
+  } else if (message.content.toLowerCase() === '!suzyscenarios') {
+    fs.readFile(process.env.URL_FILE, 'utf8', (e, data) => {
+      const obj = JSON.parse(data)
+      message.channel.send(
+        `You can access the parties storyline here\n${obj.suzyScenarios}`
       )
     })
   } else if (message.content.toLowerCase().includes('marco')) {
@@ -72,10 +86,8 @@ client.on('message', (message) => {
       fs.writeFile(process.env.URL_FILE, JSON.stringify(obj), (err) => {
         var dateTime = new Date()
         var dataForLog = `${dateTime} - ${message.author.username} - ${obj.market}\n`
-        console.log(dataForLog)
         fs.appendFile(process.env.MARKET_LOG, dataForLog, (err) => {
           if (err) throw err
-          console.log('The "data to append" was appended to file!')
         })
         err
           ? message.channel.send(`${err}`)
@@ -90,15 +102,47 @@ client.on('message', (message) => {
       obj.scenarios = newUrl
       fs.writeFile(process.env.URL_FILE, JSON.stringify(obj), (err) => {
         var dateTime = new Date()
-        console.log(message)
         var dataForLog = `${dateTime} - ${message.author.username} - ${obj.scenarios}\n`
         fs.appendFile(process.env.SCENARIO_LOG, dataForLog, (err) => {
           if (err) throw err
-          console.log('The "data to append" was appended to file!')
         })
         err
           ? message.channel.send(`${err}`)
           : message.channel.send(`You updated the scenario URL.`)
+      })
+    })
+  } else if (message.content.toLowerCase().startsWith('!setsuzymarketurl')) {
+    const prefix = '!setsuzymarketurl'
+    fs.readFile(process.env.URL_FILE, 'utf8', (e, data) => {
+      const newUrl = message.content.slice(prefix.length + 1)
+      const obj = JSON.parse(data)
+      obj.suzyMarket = newUrl
+      fs.writeFile(process.env.URL_FILE, JSON.stringify(obj), (err) => {
+        var dateTime = new Date()
+        var dataForLog = `${dateTime} - ${message.author.username} - ${obj.suzyMarket}\n`
+        fs.appendFile(process.env.SUZY_MARKET_LOG, dataForLog, (err) => {
+          if (err) throw err
+        })
+        err
+          ? message.channel.send(`${err}`)
+          : message.channel.send(`You updated the market URL for you and Suzy.`)
+      })
+    })
+  } else if (message.content.toLowerCase().startsWith('!setsuzyscenariourl')) {
+    const prefix = '!setsuzyscenariourl'
+    fs.readFile(process.env.URL_FILE, 'utf8', (e, data) => {
+      const newUrl = message.content.slice(prefix.length + 1)
+      const obj = JSON.parse(data)
+      obj.suzyScenarios = newUrl
+      fs.writeFile(process.env.URL_FILE, JSON.stringify(obj), (err) => {
+        var dateTime = new Date()
+        var dataForLog = `${dateTime} - ${message.author.username} - ${obj.suzyScenarios}\n`
+        fs.appendFile(process.env.SUZY_SCENARIO_LOG, dataForLog, (err) => {
+          if (err) throw err
+        })
+        err
+          ? message.channel.send(`${err}`)
+          : message.channel.send(`You updated the scenario URL for Suzy.`)
       })
     })
   } else if (message.content.toLowerCase() === '!channels') {
