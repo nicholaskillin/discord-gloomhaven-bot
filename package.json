@@ -10,6 +10,6 @@
     "dotenv": "^8.2.0",
     "fs": "0.0.1-security",
     "googleapis": "^39.2.0",
-    "public-ip": "^4.0.1"
+    "public-ip": "^6.0.1"
   }
 }
